@@ -15,7 +15,7 @@ def send_emails(sender_email, sender_password, subject, template, df):
     failed_emails = []
 
     for index, row in df.iterrows():
-        recipient_email = row[2]  # 3rd column
+        recipient_email = row[2]  # 3rd column 
         st.write(f"Sending to: {recipient_email}")
 
         msg = MIMEMultipart('alternative')
