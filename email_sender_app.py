@@ -47,8 +47,11 @@ def main():
     uploaded_file = st.file_uploader("Upload Excel file (.xlsx)", type=["xlsx"])
     if uploaded_file:
         df = pd.read_excel(uploaded_file)
-        st.write("Preview:", df.head(2000))
-
+        # Show only a preview of the first 10 rows
+        st.write("Preview (first 10 rows):", df.head(10))
+        # Display the total number of records
+        st.write(f"Total records to process: {len(df)}")
+        
         email_subject = st.text_input("Email Subject", "Exciting Collaboration Opportunity")
         email_template = st.text_area("Email Body (HTML allowed)", """
         <p>Hello,</p>
@@ -63,9 +66,13 @@ def main():
             if not sender_email or not sender_password:
                 st.warning("Please enter your sender email and app password.")
             else:
+                # Limit to first 490 emails
+                df_to_send = df.head(490)
+                st.write(f"Sending emails to first 490 recipients out of {len(df)} total records.")
+                
                 with st.spinner("Sending emails..."):
                     sent_count, failed_emails = send_emails(
-                        sender_email, sender_password, email_subject, email_template, df
+                        sender_email, sender_password, email_subject, email_template, df_to_send
                     )
                     st.success(f"✅ Sent {sent_count} emails successfully!")
                     if failed_emails:
