@@ -47,7 +47,7 @@ def main():
     uploaded_file = st.file_uploader("Upload Excel file (.xlsx)", type=["xlsx"])
     if uploaded_file:
         df = pd.read_excel(uploaded_file)
-        st.write("Preview:", df.head())
+        st.write("Preview:", df.head(2000))
 
         email_subject = st.text_input("Email Subject", "Exciting Collaboration Opportunity")
         email_template = st.text_area("Email Body (HTML allowed)", """
