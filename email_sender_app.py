@@ -48,7 +48,7 @@ def main():
     if uploaded_file:
         df = pd.read_excel(uploaded_file)
         # Show only a preview of the first 10 rows
-        st.write("Preview (first 10 rows):", df.head(490))
+        st.write("Preview :", df.head(490))
         # Display the total number of records
         st.write(f"Total records to process: {len(df)}")
         
